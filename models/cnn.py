@@ -1,6 +1,6 @@
-from tensorflow.keras import layers, models, optimizers, metrics
+from tensorflow.keras import layers, models, optimizers
 
-from model import Model
+from models.model import Model
 
 
 class CNN(Model):
@@ -26,7 +26,7 @@ class CNN(Model):
         maxp3 = layers.MaxPool2D((2, 2), strides=(2, 2))(conv5)
 
         flat = layers.Flatten()(maxp3)
-        dense = layers.Dense(self.output_shape, activation='sigmoid')(flat)
+        dense = layers.Dense(self.output_shape, activation='linear')(flat)
 
         self.model = models.Model(inputs=inputs, outputs=dense)
         super().build()

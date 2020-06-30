@@ -16,6 +16,7 @@ class GAF:
         series *= 2.0
         series -= sum(self.extremes)
         series /= self.extremes[1] - self.extremes[0]
+        series[np.isnan(series)] = 0.0
         # correct for floating point errors
         self.series = np.clip(series, -1.0, 1.0)
 

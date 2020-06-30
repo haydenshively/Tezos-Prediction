@@ -2,7 +2,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-dir = './test'
+dir = 'dataset/test'
 
 history_chunks = []
 

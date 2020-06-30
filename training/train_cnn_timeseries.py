@@ -2,18 +2,16 @@
 TRAIN
 """
 import os
-import math
 
-import cv2
 from scipy import stats
 import numpy as np
 from tensorflow.keras.utils import Sequence
 
-from gaf import GAF
-from model_cnn_timeseries import CNNTimeSeries
+from transforms import GAF
+from models import CNNTimeSeries
 
 
-class OurData(Sequence):
+class MyData(Sequence):
     def __init__(self, dir, batch_size, n_samples_in, n_samples_out=1, distrib_size=1):
 
         history_chunks = []
@@ -69,13 +67,13 @@ class OurData(Sequence):
 
 if __name__ == '__main__':
 
-    DATA_DIR = './train'
-    BATCH_SIZE = 1
+    DATA_DIR = '../dataset/train'
+    BATCH_SIZE = 16
     N_SAMPLES_IN = 40  # divide by 10 to get # hours the sequence covers
     N_SAMPLES_OUT = 5
     PROB_DISTRIB = 1
 
-    generator = OurData(
+    generator = MyData(
         DATA_DIR,
         BATCH_SIZE,
         N_SAMPLES_IN,
@@ -92,7 +90,7 @@ if __name__ == '__main__':
     cnn.compile()
 
     cnn.model.fit(generator,
-                  epochs=1,
+                  epochs=6,
                   shuffle=True,
                   verbose=1,
                   steps_per_epoch=len(generator))
