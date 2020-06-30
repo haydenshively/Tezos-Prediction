@@ -32,5 +32,5 @@ class LSTM(Model):
         super().build()
 
     def compile(self):
-        self.model.compile(optimizer='sgd', loss='mse', metrics=['mae'])
+        self.model.compile(optimizer='sgd', loss='mse', metrics=['mae', 'accuracy'])
         super().compile()

@@ -1,6 +1,3 @@
-"""
-TRAIN
-"""
 import os
 
 from scipy import stats
@@ -65,16 +62,14 @@ class MyData(Sequence):
         return X, Y
 
 
-if __name__ == '__main__':
-
-    DATA_DIR = '../dataset/train'
+def main(data_dir):
     BATCH_SIZE = 16
     N_SAMPLES_IN = 40  # divide by 10 to get # hours the sequence covers
     N_SAMPLES_OUT = 5
     PROB_DISTRIB = 1
 
     generator = MyData(
-        DATA_DIR,
+        data_dir,
         BATCH_SIZE,
         N_SAMPLES_IN,
         N_SAMPLES_OUT,
@@ -95,6 +90,10 @@ if __name__ == '__main__':
                   verbose=1,
                   steps_per_epoch=len(generator))
 
-    cnn.model.save('cnn_%d_%d_%d_%d.h5' % (
+    cnn.model.save('models/cnn_timeseries_%d_%d_%d_%d.h5' % (
         BATCH_SIZE, N_SAMPLES_IN, N_SAMPLES_OUT, PROB_DISTRIB
     ))
+
+
+if __name__ == '__main__':
+    main('../dataset/train')

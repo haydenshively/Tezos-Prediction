@@ -1,6 +1,3 @@
-"""
-TRAIN
-"""
 import os
 
 import numpy as np
@@ -57,15 +54,13 @@ class MyData(Sequence):
         return X, Y
 
 
-if __name__ == '__main__':
-
-    DATA_DIR = '../dataset/train'
+def main(data_dir):
     BATCH_SIZE = 16
     N_SAMPLES_IN = 40  # divide by 10 to get # hours the sequence covers
     N_SAMPLES_OUT = 5
 
     generator = MyData(
-        DATA_DIR,
+        data_dir,
         BATCH_SIZE,
         N_SAMPLES_IN,
         N_SAMPLES_OUT
@@ -81,6 +76,10 @@ if __name__ == '__main__':
                    verbose=1,
                    steps_per_epoch=len(generator))
 
-    lstm.model.save('lstm_%d_%d_%d.h5' % (
+    lstm.model.save('models/lstm_%d_%d_%d.h5' % (
         BATCH_SIZE, N_SAMPLES_IN, N_SAMPLES_OUT
     ))
+
+
+if __name__ == '__main__':
+    main('../dataset/train')
